@@ -91,15 +91,7 @@ const colorMap: Record<string, string> = {
                 {char.name}
               </h2>
               <p class="text-amber/60 text-sm italic mb-4">{char.role}</p>
-              <p class="text-salt/70 leading-relaxed mb-6">{char.description}</p>
-
-              <div class="flex flex-wrap gap-2">
-                {char.traits.map((trait) => (
-                  <span class={`text-xs px-3 py-1 rounded-full border ${colorMap[char.color]}`}>
-                    {trait}
-                  </span>
-                ))}
-              </div>
+              <p class="text-salt/70 leading-relaxed">{char.description}</p>
             </div>
           </article>
         ))}

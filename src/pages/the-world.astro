@@ -17,14 +17,6 @@ const glossaryTerms = [
   { term: 'Dasheen', definition: 'A root vegetable (taro) widely cultivated and eaten in Dominica. A staple of Dominican cuisine.', origin: 'Caribbean' },
 ];
 
-const locations = [
-  { name: 'Pagua Bay', desc: 'The northeastern coastal village where the story unfolds. A close-knit community where everyone knows everyone — and everyone\'s secrets.', type: 'Village' },
-  { name: 'The Dorado House', desc: 'The grand home of Vick\'s wealthy Indian family, perched above the village. A symbol of the family\'s status and their separation from ordinary village life.', type: 'Landmark' },
-  { name: 'The Bataka', desc: 'The Kalinago community where Ann grew up. Set apart from the main village, it\'s a place of indigenous tradition, herbal knowledge, and quiet strength.', type: 'Community' },
-  { name: 'The Little House', desc: 'The modest house by the bay where Vick and Ann lived together — and where the fire took everything. The heart of the mystery.', type: 'Landmark' },
-  { name: 'The Bay Road', desc: 'The winding coastal road connecting the village to the bay. Where fishermen pull their boats, children play, and gossip travels faster than the wind.', type: 'Place' },
-  { name: 'The Rum Shop', desc: 'The social hub of village life. Where men gather to drink, play dominoes, and talk politics. Where news spreads and opinions form.', type: 'Social' },
-];
 ---
 
 <BaseLayout
@@ -52,7 +44,7 @@ const locations = [
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium section-fade">Explore</p>
-        <h2 class="font-display text-3xl sm:text-4xl text-salt mb-4 section-fade">Map of Pagua Bay</h2>
+        <h2 class="font-display text-3xl sm:text-4xl text-salt mb-4 section-fade">Key Locations</h2>
         <p class="text-salt/60 max-w-2xl mx-auto section-fade">
           Click the markers to explore the key locations from the story. The village of Pagua Bay
           sits on the northeast coast of Dominica, where the mountains meet the sea.
@@ -65,30 +57,6 @@ const locations = [
     </div>
   </section>
 
-  <!-- Locations -->
-  <section class="py-20 sm:py-28 bg-midnight">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-display text-3xl text-salt mb-4 section-fade">Key Locations</h2>
-      <p class="text-salt/60 mb-12 section-fade">The places that shape the story and its people.</p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {locations.map((loc) => (
-          <div class="section-fade group p-6 bg-midnight/50 border border-salt/10 rounded-lg
-                      hover:border-amber/30 transition-all duration-300">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="font-display text-xl text-salt group-hover:text-amber transition-colors">
-                {loc.name}
-              </h3>
-              <span class="text-xs text-salt/30 tracking-wider uppercase px-2 py-1 border border-salt/10 rounded">
-                {loc.type}
-              </span>
-            </div>
-            <p class="text-salt/60 text-sm leading-relaxed">{loc.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
 
   <!-- Glossary -->
   <section class="py-20 sm:py-28 bg-midnight" id="glossary">
