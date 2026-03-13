@@ -11,8 +11,8 @@ interface Props {
 
 const {
   title,
-  description = 'A Caribbean mystery novel by Deborah Balthazar. Set in Dominica, where forbidden love, a suspicious fire, and buried secrets collide.',
-  ogImage = '/images/cover-front.jpg',
+  description = '"Some secrets are buried in ash." A Caribbean mystery set in Dominica by Deborah Balthazar.',
+  ogImage = 'https://secretsofpaguabay.com/images/og-image.jpg',
 } = Astro.props;
 
 const siteTitle = title === 'Home'
@@ -32,6 +32,8 @@ const siteTitle = title === 'Home'
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={`https://secretsofpaguabay.com${Astro.url.pathname}`} />
+    <meta property="og:site_name" content="Secrets of Pagua Bay" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />

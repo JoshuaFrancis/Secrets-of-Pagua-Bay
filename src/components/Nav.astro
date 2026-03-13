@@ -60,7 +60,7 @@ const links = [
   <!-- Mobile Menu Overlay -->
   <div
     id="mobile-menu"
-    class="lg:hidden fixed inset-0 top-16 bg-[rgba(26,26,46,0.98)] backdrop-blur-sm -translate-x-full transition-transform duration-300 ease-in-out"
+    class="lg:hidden fixed inset-0 top-16 z-50 bg-[rgba(26,26,46,0.99)] backdrop-blur-md -translate-x-full transition-transform duration-300 ease-in-out"
   >
     <div class="flex flex-col items-center justify-center h-full gap-6 pb-20">
       {links.map((link) => (
@@ -113,9 +113,11 @@ const links = [
   const observer = new IntersectionObserver(
     ([entry]) => {
       if (!entry.isIntersecting) {
-        nav?.classList.add('bg-charcoal/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
+        nav?.style.setProperty('background', 'rgba(26,26,46,0.95)');
+        nav?.classList.add('backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
       } else {
-        nav?.classList.remove('bg-charcoal/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
+        nav?.style.removeProperty('background');
+        nav?.classList.remove('backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
       }
     },
     { threshold: 0 }
