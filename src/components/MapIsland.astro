@@ -1,0 +1,267 @@
+---
+/**
+ * Immersive satellite map of Dominica's northeast coast.
+ * Uses ESRI World Imagery (free, no API key) with Leaflet,
+ * a dark vignette overlay, and custom glowing amber markers.
+ */
+---
+
+<div class="relative rounded-lg overflow-hidden" id="map-wrapper">
+  <!-- Vignette overlay — blends map edges into the dark page -->
+  <div class="absolute inset-0 z-20 pointer-events-none" aria-hidden="true"
+    style="box-shadow: inset 0 0 80px 40px rgba(26,26,46,0.85), inset 0 0 200px 80px rgba(26,26,46,0.4);">
+  </div>
+
+  <!-- Top/bottom gradient fade -->
+  <div class="absolute inset-x-0 top-0 h-20 z-20 pointer-events-none bg-gradient-to-b from-charcoal to-transparent" aria-hidden="true"></div>
+  <div class="absolute inset-x-0 bottom-0 h-20 z-20 pointer-events-none bg-gradient-to-t from-charcoal to-transparent" aria-hidden="true"></div>
+
+  <!-- Map container -->
+  <div id="story-map" class="w-full relative z-10" style="height: 550px;"></div>
+
+  <!-- Loading state -->
+  <div id="map-loading" class="absolute inset-0 z-30 flex items-center justify-center bg-charcoal">
+    <div class="text-center">
+      <div class="w-8 h-8 border-2 border-amber/30 border-t-amber rounded-full animate-spin mx-auto mb-3"></div>
+      <p class="text-salt/40 text-sm">Loading map...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Location detail panel -->
+<div
+  id="location-detail"
+  class="mt-6 p-6 bg-midnight/50 border border-salt/10 rounded-lg
+         opacity-0 max-h-0 overflow-hidden transition-all duration-500"
+  aria-live="polite"
+>
+  <div class="flex items-start justify-between mb-2">
+    <h3 id="detail-name" class="font-display text-xl text-amber"></h3>
+    <span id="detail-type" class="text-xs text-salt/30 tracking-wider uppercase px-2 py-1 border border-salt/10 rounded"></span>
+  </div>
+  <p id="detail-desc" class="text-salt/60 text-sm leading-relaxed"></p>
+</div>
+
+<style>
+  /* Override Leaflet's default styles to match our theme */
+  :global(.leaflet-container) {
+    background: #1A1A2E !important;
+    font-family: 'Lora', Georgia, serif !important;
+  }
+  :global(.leaflet-control-zoom) {
+    border: none !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important;
+  }
+  :global(.leaflet-control-zoom a) {
+    background: rgba(26, 26, 46, 0.9) !important;
+    color: #F5F0E8 !important;
+    border-color: rgba(245,240,232,0.1) !important;
+    width: 32px !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    font-size: 16px !important;
+  }
+  :global(.leaflet-control-zoom a:hover) {
+    background: rgba(26, 26, 46, 1) !important;
+    color: #E8A838 !important;
+  }
+  :global(.leaflet-control-attribution) {
+    background: rgba(26, 26, 46, 0.7) !important;
+    color: rgba(245,240,232,0.3) !important;
+    font-size: 9px !important;
+    padding: 2px 6px !important;
+  }
+  :global(.leaflet-control-attribution a) {
+    color: rgba(232,168,56,0.4) !important;
+  }
+
+  /* Custom marker pulse animation */
+  @keyframes marker-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(2.5); opacity: 0; }
+  }
+  :global(.marker-ping) {
+    animation: marker-pulse 2s ease-out infinite;
+  }
+  :global(.leaflet-marker-icon:hover .marker-label) {
+    opacity: 1 !important;
+  }
+</style>
+
+<script>
+  async function initMap() {
+    const loading = document.getElementById('map-loading');
+    const detail = document.getElementById('location-detail');
+    const detailName = document.getElementById('detail-name');
+    const detailType = document.getElementById('detail-type');
+    const detailDesc = document.getElementById('detail-desc');
+
+    try {
+      const L = await import('leaflet');
+
+      // Inject Leaflet CSS
+      if (!document.getElementById('leaflet-css')) {
+        const link = document.createElement('link');
+        link.id = 'leaflet-css';
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        document.head.appendChild(link);
+        await new Promise((r) => { link.onload = r; setTimeout(r, 3000); });
+      }
+
+      // Create map centered on Pagua Bay area
+      const map = L.map('story-map', {
+        center: [15.50, -61.28],
+        zoom: 12,
+        scrollWheelZoom: false,
+        zoomControl: true,
+        attributionControl: true,
+      });
+
+      // ESRI World Imagery — real satellite photos, free, no API key
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri, Maxar, Earthstar Geographics',
+        maxZoom: 18,
+      }).addTo(map);
+
+      // Optional: add subtle label overlay so place names show
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 18,
+        opacity: 0.35,
+      }).addTo(map);
+
+      // Custom marker with glow
+      function createMarker(name: string) {
+        return L.divIcon({
+          className: '',
+          html: `
+            <div style="position:relative; width:40px; height:40px;">
+              <div class="marker-ping" style="
+                position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+                width:12px; height:12px; border-radius:50%;
+                background: rgba(232,168,56,0.4);
+              "></div>
+              <div style="
+                position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+                width:12px; height:12px; border-radius:50%;
+                background: radial-gradient(circle, #E8A838 20%, #C4392D 80%);
+                border: 2px solid rgba(245,240,232,0.8);
+                box-shadow: 0 0 16px rgba(232,168,56,0.5), 0 0 32px rgba(232,168,56,0.2);
+                cursor: pointer;
+              "></div>
+              <div class="marker-label" style="
+                position:absolute; top:-28px; left:50%; transform:translateX(-50%);
+                white-space:nowrap; padding:3px 10px;
+                background:rgba(26,26,46,0.92); border:1px solid rgba(232,168,56,0.3);
+                border-radius:4px; font-family:'Playfair Display',Georgia,serif;
+                font-size:11px; color:#F5F0E8;
+                pointer-events:none; opacity:0; transition:opacity 0.2s;
+              ">${name}</div>
+            </div>`,
+          iconSize: [40, 40],
+          iconAnchor: [20, 20],
+        });
+      }
+
+      // Story locations — spread across the northeast coast for readability
+      const locations = [
+        {
+          id: 'pagua-bay',
+          name: 'Pagua Bay',
+          coords: [15.533, -61.278] as [number, number],
+          type: 'Village',
+          desc: 'The coastal village where the story unfolds. A close-knit community where everyone knows everyone — and everyone\'s secrets.',
+        },
+        {
+          id: 'little-house',
+          name: 'The Little House',
+          coords: [15.54, -61.272] as [number, number],
+          type: 'Landmark',
+          desc: 'The modest house by the bay where Vick and Ann lived together — and where the fire took everything. The heart of the mystery.',
+        },
+        {
+          id: 'dorado-house',
+          name: 'The Dorado House',
+          coords: [15.525, -61.30] as [number, number],
+          type: 'Landmark',
+          desc: 'The grand home of Vick\'s wealthy family, perched above the village. A symbol of status and separation from ordinary village life.',
+        },
+        {
+          id: 'bataka',
+          name: 'The Bataka',
+          coords: [15.48, -61.275] as [number, number],
+          type: 'Kalinago Territory',
+          desc: 'The Kalinago community where Ann grew up. Set apart from the main village, it\'s a place of indigenous tradition, herbal knowledge, and quiet strength.',
+        },
+        {
+          id: 'bay-road',
+          name: 'The Bay Road',
+          coords: [15.537, -61.285] as [number, number],
+          type: 'Place',
+          desc: 'The winding coastal road connecting the village to the bay. Where fishermen pull their boats, children play, and gossip travels faster than the wind.',
+        },
+        {
+          id: 'rum-shop',
+          name: 'The Rum Shop',
+          coords: [15.51, -61.295] as [number, number],
+          type: 'Social',
+          desc: 'The social hub of village life. Where men gather to drink, play dominoes, and talk politics. Where news spreads and opinions form.',
+        },
+      ];
+
+      let activeMarker: string | null = null;
+
+      locations.forEach((loc) => {
+        const marker = L.marker(loc.coords, { icon: createMarker(loc.name) }).addTo(map);
+
+        marker.on('click', () => {
+          if (activeMarker === loc.id) {
+            activeMarker = null;
+            if (detail) {
+              detail.classList.add('opacity-0', 'max-h-0');
+              detail.classList.remove('opacity-100', 'max-h-40');
+            }
+            return;
+          }
+
+          activeMarker = loc.id;
+          if (detailName) detailName.textContent = loc.name;
+          if (detailType) detailType.textContent = loc.type;
+          if (detailDesc) detailDesc.textContent = loc.desc;
+          if (detail) {
+            detail.classList.remove('opacity-0', 'max-h-0');
+            detail.classList.add('opacity-100', 'max-h-40');
+          }
+
+          map.panTo(loc.coords, { animate: true, duration: 0.5 });
+        });
+      });
+
+      // Hide loading overlay
+      if (loading) {
+        loading.style.transition = 'opacity 0.5s';
+        loading.style.opacity = '0';
+        setTimeout(() => { loading.style.display = 'none'; }, 500);
+      }
+
+    } catch {
+      // Fallback
+      if (loading) {
+        loading.innerHTML = `
+          <div class="text-center px-8">
+            <p class="text-salt/50 text-sm mb-2">Map unavailable</p>
+            <p class="text-salt/30 text-xs">The story is set on the northeast coast of Dominica, in the Eastern Caribbean.</p>
+          </div>`;
+      }
+    }
+  }
+
+  // Lazy-load: init when scrolled near
+  const mapEl = document.getElementById('map-wrapper');
+  if (mapEl) {
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { obs.disconnect(); initMap(); }
+    }, { rootMargin: '300px' });
+    obs.observe(mapEl);
+  }
+</script>

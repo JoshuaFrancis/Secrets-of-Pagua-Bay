@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MapIsland from '../components/MapIsland.astro';
+
+const glossaryTerms = [
+  { term: 'Obeah', definition: 'A system of spiritual practices rooted in African traditions, involving healing, divination, and sorcery. Feared and respected throughout the Caribbean.', origin: 'West African' },
+  { term: 'Nine Night', definition: 'A Caribbean funeral tradition where mourners gather for nine nights after a death to celebrate the life of the deceased, share stories, and guide the spirit to rest.', origin: 'West African / Caribbean' },
+  { term: 'Kalinago', definition: 'The indigenous people of Dominica (and other Eastern Caribbean islands), formerly called "Caribs." They maintain their own territory and cultural traditions on the island.', origin: 'Indigenous' },
+  { term: 'Bataka', definition: 'The Kalinago community settlement area. In the novel, it represents the world Ann comes from — distinct from the main village of Pagua Bay.', origin: 'Kalinago' },
+  { term: 'Bois', definition: 'Stick-fighting, a traditional martial art and competitive sport in the Caribbean. Matches are accompanied by drumming and chanting.', origin: 'Creole / French' },
+  { term: 'Manicou', definition: 'The Dominican Creole word for opossum. A common wild animal in Dominica, sometimes hunted for food.', origin: 'Creole' },
+  { term: 'Jablesse', definition: 'A she-devil or evil spirit in Caribbean folklore who appears as a beautiful woman to lure men to their doom. One foot is a cloven hoof.', origin: 'Creole / French' },
+  { term: 'Ti Punch', definition: 'A small, strong rum drink made with white rum, lime, and cane sugar. The social drink of the French Caribbean.', origin: 'French Caribbean' },
+  { term: 'Creole', definition: 'Both the mixed-heritage culture of the Caribbean and the French-based language (Kwéyòl) spoken in Dominica alongside English.', origin: 'Caribbean' },
+  { term: 'Calypso', definition: 'A genre of music originating in Trinidad, known for its witty, satirical lyrics about social and political issues. Popular throughout the Eastern Caribbean.', origin: 'Trinidadian' },
+  { term: 'Soucouyant', definition: 'A shapeshifting Caribbean folklore creature — an old woman who sheds her skin at night and flies as a ball of fire, sucking the blood of victims.', origin: 'Caribbean folklore' },
+  { term: 'Dasheen', definition: 'A root vegetable (taro) widely cultivated and eaten in Dominica. A staple of Dominican cuisine.', origin: 'Caribbean' },
+];
+
+const locations = [
+  { name: 'Pagua Bay', desc: 'The northeastern coastal village where the story unfolds. A close-knit community where everyone knows everyone — and everyone\'s secrets.', type: 'Village' },
+  { name: 'The Dorado House', desc: 'The grand home of Vick\'s wealthy Indian family, perched above the village. A symbol of the family\'s status and their separation from ordinary village life.', type: 'Landmark' },
+  { name: 'The Bataka', desc: 'The Kalinago community where Ann grew up. Set apart from the main village, it\'s a place of indigenous tradition, herbal knowledge, and quiet strength.', type: 'Community' },
+  { name: 'The Little House', desc: 'The modest house by the bay where Vick and Ann lived together — and where the fire took everything. The heart of the mystery.', type: 'Landmark' },
+  { name: 'The Bay Road', desc: 'The winding coastal road connecting the village to the bay. Where fishermen pull their boats, children play, and gossip travels faster than the wind.', type: 'Place' },
+  { name: 'The Rum Shop', desc: 'The social hub of village life. Where men gather to drink, play dominoes, and talk politics. Where news spreads and opinions form.', type: 'Social' },
+];
+---
+
+<BaseLayout
+  title="The World"
+  description="Explore the world of Secrets of Pagua Bay — the village, the Kalinago territory, and the rich culture of Dominica."
+>
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 ambient-bg overflow-hidden">
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium section-fade">The World</p>
+      <h1 class="font-display text-4xl sm:text-6xl text-salt mb-6 section-fade">
+        Dominica, the<br />
+        <span class="text-amber italic">Nature Isle</span>
+      </h1>
+      <p class="text-salt/60 max-w-2xl mx-auto section-fade">
+        The story unfolds on the island of Dominica — a small,
+        mountainous island in the Eastern Caribbean, where rainforest meets the sea and
+        traditions run deep.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Map -->
+  <section class="py-20 sm:py-28 bg-charcoal">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium section-fade">Explore</p>
+        <h2 class="font-display text-3xl sm:text-4xl text-salt mb-4 section-fade">Map of Pagua Bay</h2>
+        <p class="text-salt/60 max-w-2xl mx-auto section-fade">
+          Click the markers to explore the key locations from the story. The village of Pagua Bay
+          sits on the northeast coast of Dominica, where the mountains meet the sea.
+        </p>
+      </div>
+
+      <div class="section-fade">
+        <MapIsland />
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section class="py-20 sm:py-28 bg-midnight">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl text-salt mb-4 section-fade">Key Locations</h2>
+      <p class="text-salt/60 mb-12 section-fade">The places that shape the story and its people.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {locations.map((loc) => (
+          <div class="section-fade group p-6 bg-midnight/50 border border-salt/10 rounded-lg
+                      hover:border-amber/30 transition-all duration-300">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="font-display text-xl text-salt group-hover:text-amber transition-colors">
+                {loc.name}
+              </h3>
+              <span class="text-xs text-salt/30 tracking-wider uppercase px-2 py-1 border border-salt/10 rounded">
+                {loc.type}
+              </span>
+            </div>
+            <p class="text-salt/60 text-sm leading-relaxed">{loc.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Glossary -->
+  <section class="py-20 sm:py-28 bg-midnight" id="glossary">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium section-fade">Language & Culture</p>
+        <h2 class="font-display text-3xl sm:text-4xl text-salt mb-4 section-fade">Glossary</h2>
+        <p class="text-salt/60 max-w-2xl mx-auto section-fade">
+          The world of Pagua Bay is alive with creole language, folklore, and traditions.
+          Here are the words and concepts that give the story its voice.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {glossaryTerms.map((item) => (
+          <details class="section-fade group border border-salt/10 rounded-lg overflow-hidden
+                         hover:border-amber/20 transition-colors">
+            <summary class="flex items-center justify-between p-4 cursor-pointer select-none
+                          hover:bg-salt/5 transition-colors">
+              <div class="flex items-center gap-3">
+                <span class="font-display text-lg text-amber">{item.term}</span>
+                <span class="text-xs text-salt/30 tracking-wider">{item.origin}</span>
+              </div>
+              <svg class="w-4 h-4 text-salt/30 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-4 pb-4 text-salt/60 text-sm leading-relaxed border-t border-salt/5 pt-3">
+              {item.definition}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cultural Notes -->
+  <section class="py-20 sm:py-28 bg-charcoal">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl text-salt mb-12 text-center section-fade">Cultural Traditions</h2>
+
+      <div class="space-y-12">
+        <!-- Nine Night -->
+        <div class="section-fade">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="text-3xl">☽</span>
+            <h3 class="font-display text-2xl text-amber">Nine Night</h3>
+          </div>
+          <p class="text-salt/70 leading-relaxed">
+            Central to the novel's plot, the Nine Night is a Caribbean funerary tradition
+            with roots in West African culture. For nine nights after a death, the community
+            gathers at the home of the deceased to sing, tell stories, play games, and
+            share food and drink. It is both a wake and a celebration — a way of keeping
+            the spirit company as it transitions to the afterlife. On the ninth night,
+            the spirit is believed to depart. In <em>Secrets of Pagua Bay</em>, the
+            Nine Night vigil becomes the crucible where the village's secrets are finally
+            confronted.
+          </p>
+        </div>
+
+        <!-- Kalinago -->
+        <div class="section-fade">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="text-3xl">◈</span>
+            <h3 class="font-display text-2xl text-amber">The Kalinago People</h3>
+          </div>
+          <p class="text-salt/70 leading-relaxed">
+            Dominica's Kalinago (formerly called Caribs) are the last remaining indigenous
+            community in the Eastern Caribbean. They have their own territory on the island's
+            northeast coast, where they maintain traditional crafts, boat-building, and
+            spiritual practices. In the novel, Ann's Kalinago heritage is both a source
+            of strength and a target of prejudice — her love for Vick is seen as transgressive
+            not only because of class but because of the deep cultural divide between the
+            Kalinago community and the village.
+          </p>
+        </div>
+
+        <!-- Obeah -->
+        <div class="section-fade">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="text-3xl">✦</span>
+            <h3 class="font-display text-2xl text-amber">Obeah</h3>
+          </div>
+          <p class="text-salt/70 leading-relaxed">
+            Obeah — the system of spiritual healing, divination, and sorcery practiced
+            throughout the Caribbean — plays a subtle but important role in the story.
+            Neither purely good nor evil, obeah is woven into the fabric of daily life
+            in Pagua Bay. Characters consult obeah practitioners for protection, revenge,
+            and guidance. The novel treats obeah with the respect and complexity it
+            deserves — not as superstition, but as a living spiritual tradition.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

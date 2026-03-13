@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BuyButton from '../components/BuyButton.astro';
+---
+
+<BaseLayout
+  title="Press"
+  description="Press kit, media resources, and contact information for Secrets of Pagua Bay by Deborah Balthazar."
+>
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 ambient-bg overflow-hidden">
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium section-fade">Press & Media</p>
+      <h1 class="font-display text-4xl sm:text-6xl text-salt mb-6 section-fade">
+        Press <span class="text-amber italic">Kit</span>
+      </h1>
+      <p class="text-salt/60 max-w-2xl mx-auto section-fade">
+        Everything you need for reviews, features, and interviews.
+      </p>
+    </div>
+  </section>
+
+  <!-- Press Kit Content -->
+  <section class="py-20 sm:py-28 bg-charcoal">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+          <!-- Book Details -->
+          <div class="section-fade">
+            <h2 class="font-display text-2xl text-salt mb-6">Book Details</h2>
+            <dl class="space-y-3 text-sm">
+              {[
+                ['Title', 'Secrets of Pagua Bay'],
+                ['Subtitle', 'A Caribbean Mystery'],
+                ['Author', 'Deborah Balthazar'],
+                ['Genre', 'Mystery / Literary Fiction / Caribbean Literature'],
+                ['Publisher', 'Self-published (Amazon KDP)'],
+                ['Format', 'Paperback & Kindle'],
+                ['Pages', 'Approximately 280'],
+                ['Copyright', '2025 Deborah Balthazar'],
+              ].map(([label, value]) => (
+                <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
+                  <dt class="text-salt/40 sm:w-28 shrink-0">{label}</dt>
+                  <dd class="text-salt/80">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <!-- Short Bio -->
+          <div class="section-fade">
+            <h2 class="font-display text-2xl text-salt mb-6">Author Bio <span class="text-salt/40 text-sm">(short)</span></h2>
+            <p class="text-salt/70 leading-relaxed">
+              Deborah Balthazar is a Dominican-born, Toronto-based writer whose debut novel
+              <em>Secrets of Pagua Bay</em> brings the vibrant oral traditions of the
+              Caribbean to the page. Set on the island of Dominica, the novel weaves a
+              mystery of forbidden love, suspicious fire, and a community's fight for
+              truth through voices alive with Dominican Creole. The work draws deeply on
+              Kalinago traditions, the Nine Night funeral custom, and the rich tapestry of
+              Caribbean village life.
+            </p>
+          </div>
+
+          <!-- One-Liner -->
+          <div class="section-fade">
+            <h2 class="font-display text-2xl text-salt mb-6">One-Line Description</h2>
+            <p class="text-salt/90 text-lg italic leading-relaxed border-l-2 border-amber/40 pl-6">
+              When a forbidden interracial love affair ends in a suspicious fire on the
+              coast of Dominica, a young woman fights to uncover the truth the village
+              conspires to bury.
+            </p>
+          </div>
+
+          <!-- Themes for Press -->
+          <div class="section-fade">
+            <h2 class="font-display text-2xl text-salt mb-6">Key Themes</h2>
+            <div class="flex flex-wrap gap-2">
+              {[
+                'Forbidden Love', 'Caribbean Mystery', 'Kalinago Heritage',
+                'Dominican Culture', 'Nine Night Tradition', 'Creole Language',
+                'Race & Class', 'Village Life', 'Truth & Justice',
+                'Obeah & Spirituality', 'Oral Tradition', 'Debut Novel'
+              ].map((tag) => (
+                <span class="px-3 py-1 text-xs border border-salt/20 text-salt/60 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Interview Topics -->
+          <div class="section-fade">
+            <h2 class="font-display text-2xl text-salt mb-6">Suggested Interview Topics</h2>
+            <ul class="space-y-3 text-salt/70 text-sm leading-relaxed">
+              {[
+                'The experience of writing in both English and Dominican Creole',
+                'How Caribbean oral tradition shapes literary fiction',
+                'Portraying Kalinago culture and the responsibility that comes with it',
+                'The Nine Night tradition as both cultural practice and narrative device',
+                'Self-publishing a Caribbean literary novel — challenges and rewards',
+                'The immigrant writer\'s relationship with the homeland',
+                'Race, class, and love in small Caribbean communities',
+              ].map((topic) => (
+                <li class="flex items-start gap-3">
+                  <span class="text-amber mt-0.5">→</span>
+                  <span>{topic}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-24 space-y-8">
+            <!-- Cover Image -->
+            <div class="section-fade">
+              <img
+                src="/images/cover-front.jpg"
+                alt="Secrets of Pagua Bay book cover"
+                class="w-full rounded shadow-lg shadow-black/30"
+                loading="lazy"
+              />
+              <p class="text-salt/30 text-xs mt-2 text-center">
+                High-res cover available on request
+              </p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="section-fade space-y-4">
+              <BuyButton class="w-full justify-center" />
+
+              <a
+                href="/book-clubs"
+                class="flex items-center justify-center gap-2 px-6 py-3 border border-salt/20 text-salt/80 text-sm rounded
+                       hover:border-amber hover:text-amber transition-colors w-full"
+              >
+                Discussion Guide
+              </a>
+            </div>
+
+            <!-- Contact -->
+            <div class="section-fade p-6 bg-midnight/50 border border-salt/10 rounded-lg">
+              <h3 class="font-display text-lg text-salt mb-3">Media Contact</h3>
+              <p class="text-salt/60 text-sm leading-relaxed">
+                For review copies, interviews, and press inquiries, please reach out:
+              </p>
+              <p class="mt-3 text-amber text-sm">
+                secretsofpaguabay@gmail.com
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

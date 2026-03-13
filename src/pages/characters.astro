@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const characters = [
+  {
+    name: 'Vick Dorado',
+    role: 'The heir who chose love over legacy',
+    description: 'The son of the wealthiest Indian family in Pagua Bay. Handsome, educated, and expected to marry well and carry on the family name. Instead, he falls for Ann — a choice that costs him everything.',
+    traits: ['Passionate', 'Defiant', 'Gentle'],
+    color: 'amber',
+  },
+  {
+    name: 'Ann',
+    role: 'The Kalinago woman who dared to love',
+    description: 'A quiet, strong Kalinago woman from the Bataka community. Ann\'s love for Vick bridges two worlds that the village insists should stay apart. Her heritage makes their relationship doubly transgressive.',
+    traits: ['Resilient', 'Fierce', 'Proud'],
+    color: 'pine',
+  },
+  {
+    name: 'Rita',
+    role: 'The truth-seeker',
+    description: 'Young, sharp, and unafraid to ask questions the rest of the village won\'t touch. Rita is the one who refuses to accept the official story of the fire. Her investigation drives the novel\'s mystery forward.',
+    traits: ['Brave', 'Determined', 'Righteous'],
+    color: 'ember',
+  },
+  {
+    name: 'Ma Dorado',
+    role: 'The matriarch who guards the family name',
+    description: 'Vick\'s formidable mother, whose control over her family and reputation in the village is absolute. She sees Ann as a threat to everything she\'s built — and she is not a woman who tolerates threats.',
+    traits: ['Commanding', 'Calculating', 'Proud'],
+    color: 'atlantic',
+  },
+  {
+    name: 'Pa Dorado',
+    role: 'The patriarch caught between duty and love',
+    description: 'Vick\'s father, a successful businessman who built the Dorado fortune. Torn between his love for his son and the rigid social expectations of his community and caste.',
+    traits: ['Conflicted', 'Traditional', 'Burdened'],
+    color: 'ash',
+  },
+  {
+    name: 'The Obeah Woman',
+    role: 'The seer who warns but cannot save',
+    description: 'A mysterious spiritual practitioner who sees what others refuse to see. Her warnings about the fire go unheeded, and her knowledge of the village\'s secrets runs deeper than anyone suspects.',
+    traits: ['Enigmatic', 'Powerful', 'Knowing'],
+    color: 'amber',
+  },
+];
+
+const colorMap: Record<string, string> = {
+  amber: 'border-amber/40 text-amber',
+  pine: 'border-pine/60 text-pine',
+  ember: 'border-ember/60 text-ember',
+  atlantic: 'border-atlantic/60 text-atlantic',
+  ash: 'border-salt/30 text-salt/60',
+};
+---
+
+<BaseLayout
+  title="Characters"
+  description="Meet the characters of Secrets of Pagua Bay — from the star-crossed lovers to the truth-seeker who won't let their story be buried."
+>
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 ambient-bg overflow-hidden">
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium section-fade">Characters</p>
+      <h1 class="font-display text-4xl sm:text-6xl text-salt mb-6 section-fade">
+        The People of<br />
+        <span class="text-amber italic">Pagua Bay</span>
+      </h1>
+      <p class="text-salt/60 max-w-2xl mx-auto section-fade">
+        A village is only as complex as its people. Meet those whose lives, loves,
+        and secrets drive the story forward.
+      </p>
+    </div>
+  </section>
+
+  <!-- Characters Grid -->
+  <section class="py-20 sm:py-28 bg-charcoal">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {characters.map((char) => (
+          <article
+            class="section-fade group relative p-8 bg-midnight/50 border border-salt/10 rounded-lg
+                   hover:border-amber/20 transition-all duration-300 overflow-hidden"
+          >
+            {/* Subtle glow on hover */}
+            <div class="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-amber" aria-hidden="true"></div>
+
+            <div class="relative">
+              <h2 class="font-display text-2xl text-salt mb-1 group-hover:text-amber transition-colors">
+                {char.name}
+              </h2>
+              <p class="text-amber/60 text-sm italic mb-4">{char.role}</p>
+              <p class="text-salt/70 leading-relaxed mb-6">{char.description}</p>
+
+              <div class="flex flex-wrap gap-2">
+                {char.traits.map((trait) => (
+                  <span class={`text-xs px-3 py-1 rounded-full border ${colorMap[char.color]}`}>
+                    {trait}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Relationships -->
+  <section class="py-20 sm:py-28 bg-midnight">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-display text-3xl text-salt mb-6 section-fade">Bonds & Divides</h2>
+      <p class="text-salt/60 leading-relaxed section-fade">
+        At the heart of <em>Secrets of Pagua Bay</em> is a web of relationships shaped
+        by love, loyalty, race, class, and fear. The Dorado family's wealth sets them
+        apart. The Kalinago community's traditions set them apart in a different way.
+        And between these worlds, Vick and Ann try to build something that neither
+        side is willing to accept.
+      </p>
+      <div class="mt-12 flex items-center justify-center gap-4" aria-hidden="true">
+        <div class="h-px w-16 bg-gradient-to-r from-transparent to-amber/30"></div>
+        <svg class="w-6 h-6 text-amber/40" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C12 2 6 10 6 16a6 6 0 0012 0c0-6-6-14-6-14zm0 18a3 3 0 01-3-3c0-3 3-8 3-8s3 5 3 8a3 3 0 01-3 3z"/>
+        </svg>
+        <div class="h-px w-16 bg-gradient-to-l from-transparent to-amber/30"></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

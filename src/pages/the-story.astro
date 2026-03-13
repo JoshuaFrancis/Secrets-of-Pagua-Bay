@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BuyButton from '../components/BuyButton.astro';
+---
+
+<BaseLayout
+  title="The Story"
+  description="Read an excerpt from Secrets of Pagua Bay — a Caribbean mystery of forbidden love, suspicious fire, and a village's fight for truth."
+>
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 ambient-bg overflow-hidden">
+    <div class="absolute inset-0 fire-glow opacity-30" aria-hidden="true"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium section-fade">The Story</p>
+      <h1 class="font-display text-4xl sm:text-6xl text-salt mb-6 section-fade">
+        A Fire That Changed<br />
+        <span class="text-amber italic">Everything</span>
+      </h1>
+      <p class="text-salt/60 max-w-2xl mx-auto section-fade">
+        In the village of Pagua Bay, on the northeastern coast of Dominica, love crosses
+        every line the community has drawn — and the price is paid in fire and silence.
+      </p>
+    </div>
+  </section>
+
+  <!-- Synopsis -->
+  <section class="py-20 sm:py-28 bg-charcoal">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="section-fade space-y-8 text-salt/80 leading-relaxed text-lg">
+        <p>
+          Vick Dorado has everything a young man in Pagua Bay could want — a wealthy family,
+          a name that opens doors, and the respect of the village. Ann has none of these
+          things. She is Kalinago, from the Bataka community on the fringes of the village,
+          where the old ways are still kept and outsiders are viewed with suspicion.
+        </p>
+        <p>
+          But love is not interested in boundaries. When Vick and Ann begin their
+          forbidden relationship, they set in motion a chain of events that will
+          tear the village apart. The Dorado family's fury at the match, the whispered
+          warnings from elders, the obeah woman's cryptic prophecies — none of it is
+          enough to keep them apart.
+        </p>
+        <p>
+          Then the fire comes.
+        </p>
+        <p>
+          The little house on the bay, where Vick and Ann had dared to build a life
+          together, burns to the ground in the night. Both are found dead. The police
+          call it an accident — a kerosene lamp knocked over in the wind. But the
+          village knows. The way the fire burned, the timing, the locked doors — this
+          was no accident.
+        </p>
+        <p>
+          At the Nine Night vigil for the dead, the community gathers to mourn, to
+          gossip, and to grapple with the truth they've been avoiding. Among them is
+          Rita — young, sharp, and unwilling to let the dead be buried along with their
+          secrets. As she pieces together what really happened that night, she discovers
+          that the fire was only the last in a long line of betrayals, and that the
+          truth reaches far deeper than anyone imagined.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typewriter Excerpt -->
+  <section class="py-20 sm:py-28 bg-midnight relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5" aria-hidden="true"
+      style="background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(245,240,232,0.1) 28px, rgba(245,240,232,0.1) 29px);">
+    </div>
+
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-amber text-sm tracking-widest uppercase mb-8 font-medium section-fade">An Excerpt</p>
+
+      <div id="typewriter-container" class="section-fade">
+        <blockquote class="font-body text-lg sm:text-xl text-salt/90 leading-relaxed italic space-y-4">
+          <p id="typewriter-text" class="min-h-[200px]">
+            <span class="typewriter-content"></span>
+            <span id="typewriter-cursor" class="inline-block w-0.5 h-5 bg-amber ml-0.5 align-middle animate-pulse"></span>
+          </p>
+        </blockquote>
+        <p class="mt-6 text-salt/40 text-sm">— from Chapter One</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Themes -->
+  <section class="py-20 sm:py-28 bg-charcoal">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl text-salt text-center mb-16 section-fade">Themes</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[
+          { title: 'Forbidden Love', desc: 'A romance that defies the rigid boundaries of race, class, and family expectation in a small Caribbean village.', icon: '♡' },
+          { title: 'Truth & Justice', desc: 'When a community conspires to silence the truth, one woman refuses to let the dead be forgotten.', icon: '⚖' },
+          { title: 'Kalinago Heritage', desc: 'The rich traditions, spiritual practices, and resilience of Dominica\'s indigenous Kalinago people.', icon: '◈' },
+          { title: 'Village Life', desc: 'The intimacy, beauty, and suffocating closeness of life in a small Dominican coastal village.', icon: '⌂' },
+          { title: 'Nine Night', desc: 'The Caribbean wake tradition where the living gather to honor the dead — and where secrets come to light.', icon: '☽' },
+          { title: 'Power & Privilege', desc: 'How wealth and status protect the guilty while the voiceless bear the consequences.', icon: '⚡' },
+        ].map((theme) => (
+          <div class="section-fade p-6 border border-salt/10 rounded-lg hover:border-amber/30 transition-colors">
+            <span class="text-2xl mb-3 block text-amber/60">{theme.icon}</span>
+            <h3 class="font-display text-lg text-salt mb-2">{theme.title}</h3>
+            <p class="text-salt/60 text-sm leading-relaxed">{theme.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Buy CTA -->
+  <section class="py-20 sm:py-28 ambient-bg text-center" id="buy">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 section-fade">
+      <h2 class="font-display text-3xl sm:text-4xl text-salt mb-4">
+        Begin the Journey
+      </h2>
+      <p class="text-salt/60 mb-8">
+        Available now in paperback and Kindle.
+      </p>
+      <BuyButton size="large" />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const excerpt = `The fire that took everything from Pagua Bay started on a night when the wind came down from the mountains like something with a will of its own. It bent the coconut palms along the shore until their fronds swept the sand, and it carried the smell of green bush and coming rain through every open window in the village.
+
+But it wasn't rain that came.
+
+It was flame — quick and hungry, leaping from the kerosene-soaked walls of the little house at the end of the bay road, the house where Vick Dorado and his woman Ann had been living together in what the village called sin and what they called love.`;
+
+  const container = document.querySelector('.typewriter-content');
+  const cursor = document.getElementById('typewriter-cursor');
+
+  if (container) {
+    if (prefersReducedMotion) {
+      container.textContent = excerpt;
+      cursor?.classList.add('hidden');
+    } else {
+      let i = 0;
+      const speed = 25;
+      let hasStarted = false;
+
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          hasStarted = true;
+          typeWriter();
+        }
+      }, { threshold: 0.3 });
+
+      observer.observe(document.getElementById('typewriter-container')!);
+
+      function typeWriter() {
+        if (i < excerpt.length) {
+          container.textContent += excerpt.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        } else {
+          cursor?.classList.add('hidden');
+        }
+      }
+    }
+  }
+</script>

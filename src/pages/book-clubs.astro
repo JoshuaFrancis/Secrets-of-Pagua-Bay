@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const questions = [
+  {
+    category: 'Love & Relationships',
+    items: [
+      'What makes Vick and Ann\'s relationship so transgressive in the context of Pagua Bay? Which social barriers are most powerful — race, class, or family expectation?',
+      'How does the community\'s reaction to Vick and Ann\'s relationship reflect broader patterns of how societies police who can love whom?',
+      'Do you think Vick and Ann were naive about the consequences of their relationship, or bravely defiant? Where is the line between the two?',
+    ],
+  },
+  {
+    category: 'Truth & Justice',
+    items: [
+      'Why does the village choose silence over truth after the fire? What are the costs and benefits of that silence for different characters?',
+      'Rita takes enormous personal risk to seek the truth. What drives her when everyone else looks away? Have you ever been in a situation where speaking up was costly?',
+      'The novel suggests that some truths, once buried, poison an entire community. Do you agree? Can you think of real-world parallels?',
+    ],
+  },
+  {
+    category: 'Culture & Identity',
+    items: [
+      'How does Ann\'s Kalinago heritage shape her experience in the village? How does the novel portray the relationship between the Kalinago community and the wider village?',
+      'What role does obeah play in the story? How does the novel navigate the line between superstition and spiritual tradition?',
+      'The Nine Night vigil is both a funeral tradition and the setting for key revelations. How does the ritual structure shape the story\'s pacing and emotional impact?',
+    ],
+  },
+  {
+    category: 'Power & Privilege',
+    items: [
+      'How does the Dorado family\'s wealth influence the investigation — and the village\'s willingness to question the official story?',
+      'Ma Dorado is both a complex character and a formidable antagonist. Did you find yourself understanding her perspective, even while opposing her actions?',
+      'The novel depicts a community where power is held by a few families. How does this dynamic shape who gets to speak, who gets to love, and who gets justice?',
+    ],
+  },
+  {
+    category: 'Language & Voice',
+    items: [
+      'The novel uses Dominican Creole alongside English. How did this affect your reading experience? What did the Creole add that English alone couldn\'t convey?',
+      'Many characters speak in distinct voices — from the village elders to the young generation. Which voice stayed with you most, and why?',
+      'How does the oral storytelling tradition of the Caribbean shape the novel\'s structure and style?',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Book Clubs"
+  description="Discussion questions and resources for book clubs reading Secrets of Pagua Bay by Deborah Balthazar."
+>
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 ambient-bg overflow-hidden">
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium section-fade">Book Clubs</p>
+      <h1 class="font-display text-4xl sm:text-6xl text-salt mb-6 section-fade">
+        Discussion<br />
+        <span class="text-amber italic">Guide</span>
+      </h1>
+      <p class="text-salt/60 max-w-2xl mx-auto section-fade">
+        Whether you're reading alone or with a group, these questions are designed to
+        deepen your experience of the novel and spark meaningful conversation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Questions -->
+  <section class="py-20 sm:py-28 bg-charcoal">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-12">
+        {questions.map((section, sectionIdx) => (
+          <div class="section-fade">
+            <h2 class="font-display text-2xl text-amber mb-6">{section.category}</h2>
+            <ol class="space-y-4" start={sectionIdx * 3 + 1}>
+              {section.items.map((q, i) => (
+                <li class="flex gap-4 text-salt/80 leading-relaxed">
+                  <span class="text-amber/40 font-display text-lg shrink-0 w-8">
+                    {sectionIdx * 3 + i + 1}.
+                  </span>
+                  <span>{q}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
+      </div>
+
+      <!-- Tips -->
+      <div class="mt-20 section-fade">
+        <div class="p-8 bg-midnight/50 border border-salt/10 rounded-lg">
+          <h3 class="font-display text-xl text-salt mb-4">Tips for Your Book Club</h3>
+          <ul class="space-y-3 text-salt/70 text-sm leading-relaxed">
+            <li class="flex items-start gap-3">
+              <span class="text-amber mt-0.5">•</span>
+              <span>Set the mood with Caribbean music — look for Dominican cadence-lypso or bouyon playlists.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-amber mt-0.5">•</span>
+              <span>Serve ti-punch (white rum, lime, cane sugar) or sorrel drink for an authentic island atmosphere.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-amber mt-0.5">•</span>
+              <span>Read select passages aloud in the Creole — the rhythm and cadence add a dimension that silent reading can't capture.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-amber mt-0.5">•</span>
+              <span>Visit the <a href="/the-world#glossary" class="text-amber hover:underline">glossary</a> before your meeting to familiarize yourself with the Creole terms.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact for Book Clubs -->
+  <section class="py-20 sm:py-28 bg-midnight text-center">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 section-fade">
+      <h2 class="font-display text-2xl text-salt mb-4">Invite the Author</h2>
+      <p class="text-salt/60 mb-8">
+        Deborah is available for virtual book club visits and Q&A sessions. Reach out
+        through the <a href="/press" class="text-amber hover:underline">press page</a>
+        to arrange a visit.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

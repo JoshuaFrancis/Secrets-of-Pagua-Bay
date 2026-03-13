@@ -1,0 +1,35 @@
+---
+interface Props {
+  size?: 'default' | 'large';
+  class?: string;
+}
+
+const { size = 'default', class: className = '' } = Astro.props;
+---
+
+<a
+  href="/buy"
+  target="_blank"
+  rel="noopener noreferrer"
+  data-buy-link
+  class:list={[
+    'inline-flex items-center justify-center font-semibold rounded transition-all duration-200 group',
+    'bg-amber text-charcoal hover:bg-amber-dark hover:shadow-lg hover:shadow-amber/20',
+    'focus:outline-none focus:ring-2 focus:ring-amber focus:ring-offset-2 focus:ring-offset-charcoal',
+    size === 'large' ? 'px-10 py-4 text-lg gap-3' : 'px-6 py-3 text-sm gap-2',
+    className,
+  ]}
+>
+  <span>Get the Book</span>
+  <svg
+    class:list={[
+      'transition-transform group-hover:translate-x-1',
+      size === 'large' ? 'w-5 h-5' : 'w-4 h-4',
+    ]}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+  </svg>
+</a>

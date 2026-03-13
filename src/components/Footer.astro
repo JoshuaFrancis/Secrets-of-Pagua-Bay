@@ -1,0 +1,125 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="relative bg-charcoal border-t border-salt/10">
+  <!-- Subtle fire glow at top -->
+  <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber/30 to-transparent"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <!-- Brand -->
+      <div>
+        <h3 class="font-display text-2xl text-amber mb-4">Secrets of Pagua Bay</h3>
+        <p class="text-salt/60 text-sm leading-relaxed">
+          A Caribbean mystery by Deborah Balthazar.<br />
+          Set in the lush mountains and coastal villages of Dominica.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <h4 class="font-display text-sm uppercase tracking-widest text-salt/40 mb-4">Explore</h4>
+        <nav class="flex flex-col gap-2">
+          <a href="/the-story" class="text-salt/60 hover:text-amber transition-colors text-sm">The Story</a>
+          <a href="/the-world" class="text-salt/60 hover:text-amber transition-colors text-sm">The World</a>
+          <a href="/characters" class="text-salt/60 hover:text-amber transition-colors text-sm">Characters</a>
+          <a href="/about" class="text-salt/60 hover:text-amber transition-colors text-sm">About the Author</a>
+          <a href="/book-clubs" class="text-salt/60 hover:text-amber transition-colors text-sm">Book Clubs</a>
+          <a href="/press" class="text-salt/60 hover:text-amber transition-colors text-sm">Press Kit</a>
+        </nav>
+      </div>
+
+      <!-- Connect -->
+      <div>
+        <h4 class="font-display text-sm uppercase tracking-widest text-salt/40 mb-4">Connect</h4>
+        <div class="flex flex-col gap-2">
+          <a href="/the-story#buy" class="text-amber hover:text-amber-dark transition-colors text-sm font-medium">
+            Get the Book →
+          </a>
+          <a href="/press" class="text-salt/60 hover:text-amber transition-colors text-sm">
+            Press & Media Inquiries
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-16 pt-8 border-t border-salt/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-salt/40 text-xs">
+        &copy; {year} Deborah Balthazar. All rights reserved.
+      </p>
+      <button
+        class="text-salt/30 text-xs hover:text-salt/50 transition-colors cursor-pointer bg-transparent border-none"
+        id="footer-moon"
+        aria-label="A hidden blessing"
+      >
+        ☽ Made with care in the Caribbean spirit
+      </button>
+    </div>
+  </div>
+
+  <!-- Kalinago Blessing Easter Egg -->
+  <div
+    id="kalinago-blessing"
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm
+           opacity-0 pointer-events-none transition-all duration-700"
+    role="dialog"
+    aria-hidden="true"
+    aria-label="A Kalinago blessing"
+  >
+    <div class="max-w-lg mx-auto px-8 text-center">
+      <p class="text-amber/60 text-sm tracking-widest uppercase mb-8">A Kalinago Blessing</p>
+      <blockquote class="font-display text-2xl sm:text-3xl text-salt/90 italic leading-relaxed mb-8">
+        &ldquo;May the river carry your sorrows to the sea. May the mountain hold your
+        stories in its stones. May the fire that took what we loved light the way
+        to what we must remember.&rdquo;
+      </blockquote>
+      <p class="text-salt/40 text-sm mb-12">
+        In honor of the Kalinago people of Dominica — keepers of the old ways, stewards
+        of the land, and the heart of this story.
+      </p>
+      <button
+        id="close-blessing"
+        class="text-salt/40 text-xs tracking-widest uppercase hover:text-salt transition-colors"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const moonBtn = document.getElementById('footer-moon');
+  const blessing = document.getElementById('kalinago-blessing');
+  const closeBtn = document.getElementById('close-blessing');
+
+  let clickCount = 0;
+  let clickTimer: ReturnType<typeof setTimeout>;
+
+  moonBtn?.addEventListener('click', () => {
+    clickCount++;
+    clearTimeout(clickTimer);
+
+    if (clickCount >= 3) {
+      clickCount = 0;
+      blessing?.classList.remove('opacity-0', 'pointer-events-none');
+      blessing?.classList.add('opacity-100', 'pointer-events-auto');
+      blessing?.setAttribute('aria-hidden', 'false');
+    } else {
+      clickTimer = setTimeout(() => { clickCount = 0; }, 1500);
+    }
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    blessing?.classList.add('opacity-0', 'pointer-events-none');
+    blessing?.classList.remove('opacity-100', 'pointer-events-auto');
+    blessing?.setAttribute('aria-hidden', 'true');
+  });
+
+  blessing?.addEventListener('click', (e) => {
+    if (e.target === blessing) {
+      closeBtn?.click();
+    }
+  });
+</script>

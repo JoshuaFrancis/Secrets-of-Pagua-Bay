@@ -1,0 +1,106 @@
+---
+interface Props {
+  heading?: string;
+  subtext?: string;
+}
+
+const {
+  heading = 'Stay Connected',
+  subtext = 'Be the first to know about readings, events, and new releases from Deborah Balthazar.',
+} = Astro.props;
+---
+
+<div class="w-full max-w-md mx-auto" id="email-signup">
+  <h3 class="font-display text-xl text-salt mb-2">{heading}</h3>
+  <p class="text-salt/60 text-sm mb-6">{subtext}</p>
+
+  <form id="signup-form" class="flex flex-col sm:flex-row gap-3" novalidate>
+    <div class="flex-1 relative">
+      <input
+        type="email"
+        name="email"
+        id="signup-email"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+        class="w-full px-4 py-3 bg-midnight border border-salt/20 rounded text-salt placeholder:text-salt/30 text-sm
+               focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber transition-colors"
+      />
+      <p id="email-error" class="absolute -bottom-5 left-0 text-xs text-ember hidden">
+        Please enter a valid email address
+      </p>
+    </div>
+    <button
+      type="submit"
+      id="signup-btn"
+      class="px-6 py-3 bg-amber text-charcoal text-sm font-semibold rounded
+             hover:bg-amber-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed
+             whitespace-nowrap"
+    >
+      Subscribe
+    </button>
+  </form>
+
+  <!-- Success message -->
+  <div id="signup-success" class="hidden mt-4 p-4 bg-pine/20 border border-pine/30 rounded">
+    <p class="text-pine text-sm font-medium">Thank you! You'll hear from us soon.</p>
+  </div>
+
+  <!-- Error message -->
+  <div id="signup-error-msg" class="hidden mt-4 p-4 bg-ember/20 border border-ember/30 rounded">
+    <p class="text-ember text-sm font-medium">Something went wrong. Please try again.</p>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('signup-form') as HTMLFormElement;
+  const emailInput = document.getElementById('signup-email') as HTMLInputElement;
+  const emailError = document.getElementById('email-error');
+  const submitBtn = document.getElementById('signup-btn') as HTMLButtonElement;
+  const successEl = document.getElementById('signup-success');
+  const errorEl = document.getElementById('signup-error-msg');
+
+  function isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+
+    // Client-side validation
+    if (!isValidEmail(email)) {
+      emailError?.classList.remove('hidden');
+      emailInput.classList.add('border-ember');
+      return;
+    }
+
+    emailError?.classList.add('hidden');
+    emailInput.classList.remove('border-ember');
+
+    // Disable button
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subscribing...';
+
+    // TODO: Replace with actual ConvertKit/Mailchimp endpoint
+    // For now, simulate success after a brief delay
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 800));
+
+      // Show success
+      form.classList.add('hidden');
+      successEl?.classList.remove('hidden');
+    } catch {
+      // Show error
+      errorEl?.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Subscribe';
+    }
+  });
+
+  emailInput?.addEventListener('input', () => {
+    emailError?.classList.add('hidden');
+    emailInput.classList.remove('border-ember');
+  });
+</script>

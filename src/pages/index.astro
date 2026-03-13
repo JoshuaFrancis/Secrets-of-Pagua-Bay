@@ -1,0 +1,394 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BuyButton from '../components/BuyButton.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+---
+
+<BaseLayout title="Home">
+  <!-- ============================================================
+       SECTION 1: THE DARKNESS — Full black with floating embers
+       ============================================================ -->
+  <section
+    class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
+    id="hero-dark"
+  >
+    <!-- Hero background image -->
+    <div class="absolute inset-0">
+      <img
+        src="/images/Hero.png"
+        alt=""
+        class="w-full h-full object-cover opacity-60"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-black/40"></div>
+    </div>
+
+    <!-- Ember particles canvas -->
+    <canvas
+      id="ember-canvas"
+      class="absolute inset-0 w-full h-full pointer-events-none z-[1]"
+      aria-hidden="true"
+    ></canvas>
+
+    <!-- Smoke wisps (CSS only) -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 smoke-overlay opacity-20 z-[1]" aria-hidden="true"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
+      <h1 class="font-display text-5xl sm:text-7xl lg:text-8xl font-bold text-salt mb-6 section-fade" style="animation-delay: 0.8s">
+        <span class="block text-salt/60 text-3xl sm:text-4xl lg:text-5xl font-semibold mb-2">Secrets of</span>
+        <span class="text-glow">Pagua Bay</span>
+      </h1>
+      <p class="font-display text-xl sm:text-2xl text-amber/80 italic section-fade" style="animation-delay: 1.2s">
+        Some secrets are buried in ash
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: THE FIRE — Back cover as atmospheric background
+       ============================================================ -->
+  <section
+    class="relative min-h-screen flex items-end overflow-hidden"
+    id="hero-fire"
+  >
+    <!-- Background image: back cover -->
+    <div class="absolute inset-0">
+      <img
+        src="/images/cover-back.jpg"
+        alt=""
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+      <!-- Dark gradient overlay for text readability -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/30"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+    </div>
+
+    <!-- Fire glow overlay -->
+    <div class="absolute inset-0 fire-glow mix-blend-screen" aria-hidden="true"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 sm:pb-32">
+      <div class="max-w-2xl section-fade">
+        <blockquote class="font-display text-2xl sm:text-3xl lg:text-4xl text-salt leading-snug mb-6">
+          &ldquo;The fire that consumed the little house on Pagua Bay took everything&mdash;the
+          lovers, the truth, and the peace of an entire village.&rdquo;
+        </blockquote>
+        <p class="text-amber/70 text-sm tracking-widest uppercase">
+          Deborah Balthazar
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: THE BOOK — Cover reveal with synopsis
+       ============================================================ -->
+  <section class="relative py-24 sm:py-32 bg-charcoal overflow-hidden" id="book-reveal">
+    <!-- Subtle texture -->
+    <div class="absolute inset-0 opacity-5" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23F5F0E8\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Book Cover -->
+        <div class="flex justify-center section-fade">
+          <div class="relative group">
+            <!-- Glow behind book -->
+            <div class="absolute -inset-4 bg-amber/10 rounded-lg blur-2xl group-hover:bg-amber/20 transition-all duration-700" aria-hidden="true"></div>
+            <img
+              src="/images/cover-front.jpg"
+              alt="Secrets of Pagua Bay book cover — a man silhouetted against a burning house on the Caribbean coast at dusk"
+              class="relative w-full max-w-sm rounded shadow-2xl shadow-black/50
+                     transition-transform duration-700 group-hover:scale-[1.02]"
+              loading="eager"
+            />
+          </div>
+        </div>
+
+        <!-- Synopsis -->
+        <div class="section-fade">
+          <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium">The Novel</p>
+          <h2 class="font-display text-3xl sm:text-4xl text-salt mb-6 leading-tight">
+            A forbidden love.<br />
+            A deadly fire.<br />
+            <span class="text-amber">A village's silence.</span>
+          </h2>
+          <div class="space-y-4 text-salt/70 leading-relaxed">
+            <p>
+              In the lush coastal village of Pagua Bay, Dominica, Vick Dorado&mdash;the
+              privileged son of a wealthy Indian family&mdash;and Ann, a Kalinago woman
+              from the Bataka community, fall deeply in love despite the rigid boundaries
+              of race and class.
+            </p>
+            <p>
+              When a suspicious fire consumes their home and claims both their lives,
+              the authorities call it an accident. But the village knows better. Among
+              the mourners at the Nine Night vigil, whispers of arson and murder grow
+              louder, and a young woman named Rita begins to ask the questions no one
+              else dares to voice.
+            </p>
+            <p>
+              Through voices alive with Dominican Creole, the rhythms of calypso, and the weight
+              of centuries-old traditions, <em>Secrets of Pagua Bay</em> unravels a mystery
+              that reaches into the heart of what it means to love, to belong, and to
+              fight for the truth.
+            </p>
+          </div>
+
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <BuyButton size="large" />
+            <span class="text-salt/40 text-sm">Available on Amazon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: ATMOSPHERE — Pull quotes from the world
+       ============================================================ -->
+  <section class="relative py-24 sm:py-32 ambient-bg overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <!-- Quote 1 -->
+        <div class="section-fade">
+          <blockquote class="relative pl-6 border-l-2 border-amber/40">
+            <p class="font-display text-xl sm:text-2xl text-salt/90 italic leading-relaxed mb-4">
+              &ldquo;In Pagua Bay, everybody know everybody business.
+              But some business, people choose not to see.&rdquo;
+            </p>
+            <cite class="text-amber/60 text-sm not-italic tracking-wide">— Ma Dorado</cite>
+          </blockquote>
+        </div>
+
+        <!-- Quote 2 -->
+        <div class="section-fade">
+          <blockquote class="relative pl-6 border-l-2 border-ember/40">
+            <p class="font-display text-xl sm:text-2xl text-salt/90 italic leading-relaxed mb-4">
+              &ldquo;The dead deserve truth. Even when the living are afraid of it.&rdquo;
+            </p>
+            <cite class="text-amber/60 text-sm not-italic tracking-wide">— Rita</cite>
+          </blockquote>
+        </div>
+      </div>
+
+      <!-- Divider with fire motif -->
+      <div class="my-16 flex items-center justify-center gap-4" aria-hidden="true">
+        <div class="h-px w-16 bg-gradient-to-r from-transparent to-amber/30"></div>
+        <svg class="w-6 h-6 text-amber/40" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C12 2 6 10 6 16a6 6 0 0012 0c0-6-6-14-6-14zm0 18a3 3 0 01-3-3c0-3 3-8 3-8s3 5 3 8a3 3 0 01-3 3z"/>
+        </svg>
+        <div class="h-px w-16 bg-gradient-to-l from-transparent to-amber/30"></div>
+      </div>
+
+      <!-- The World teaser -->
+      <div class="text-center section-fade">
+        <h2 class="font-display text-2xl sm:text-3xl text-salt mb-4">
+          Enter the World of Pagua Bay
+        </h2>
+        <p class="text-salt/60 max-w-xl mx-auto mb-8">
+          Explore the village, meet the characters, and discover the rich tapestry of
+          Dominican culture—from Kalinago traditions to the creole rhythms of island life.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/the-world"
+            class="px-6 py-3 border border-salt/20 text-salt/80 text-sm rounded
+                   hover:border-amber hover:text-amber transition-colors"
+          >
+            Explore the World
+          </a>
+          <a
+            href="/characters"
+            class="px-6 py-3 border border-salt/20 text-salt/80 text-sm rounded
+                   hover:border-amber hover:text-amber transition-colors"
+          >
+            Meet the Characters
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: ABOUT THE AUTHOR — Brief intro
+       ============================================================ -->
+  <section class="relative py-24 sm:py-32 bg-midnight overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center section-fade">
+      <p class="text-amber text-sm tracking-widest uppercase mb-4 font-medium">The Author</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-salt mb-6">Deborah Balthazar</h2>
+      <p class="text-salt/70 leading-relaxed max-w-2xl mx-auto mb-8">
+        Born in Dominica and educated in Toronto, Deborah Balthazar brings the
+        vibrant oral traditions of the Caribbean to the page. <em>Secrets of
+        Pagua Bay</em> is her debut novel—a story drawn from the landscapes,
+        languages, and lives she grew up surrounded by.
+      </p>
+      <a
+        href="/about"
+        class="inline-flex items-center gap-2 text-amber hover:text-amber-dark transition-colors text-sm group"
+      >
+        Read her story
+        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6: CTA — Email signup + final buy push
+       ============================================================ -->
+  <section class="relative py-24 sm:py-32 bg-charcoal overflow-hidden" id="buy">
+    <!-- Subtle top glow -->
+    <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ember/20 to-transparent"></div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        <!-- Buy CTA -->
+        <div class="section-fade text-center md:text-left">
+          <h2 class="font-display text-3xl text-salt mb-4">Read the Book</h2>
+          <p class="text-salt/60 mb-8">
+            Available now in paperback and Kindle on Amazon.
+          </p>
+          <BuyButton size="large" />
+        </div>
+
+        <!-- Email Signup -->
+        <div class="section-fade">
+          <EmailSignup />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<!-- ============================================================
+     EMBER PARTICLE SYSTEM (vanilla JS, respects reduced motion)
+     ============================================================ -->
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    const canvas = document.getElementById('ember-canvas') as HTMLCanvasElement;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let particles: Array<{
+        x: number; y: number; vx: number; vy: number;
+        size: number; life: number; maxLife: number;
+        r: number; g: number; b: number;
+      }> = [];
+      let animationId: number;
+
+      function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+
+      function createParticle() {
+        const isEmber = Math.random() > 0.3;
+        return {
+          x: Math.random() * canvas.width,
+          y: canvas.height + 10,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: -(Math.random() * 1.5 + 0.5),
+          size: Math.random() * 3 + 1,
+          life: 0,
+          maxLife: Math.random() * 200 + 100,
+          r: isEmber ? 232 : 196,
+          g: isEmber ? 168 : 57,
+          b: isEmber ? 56 : 45,
+        };
+      }
+
+      function animate() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Add new particles sparingly
+        if (Math.random() > 0.92 && particles.length < 30) {
+          particles.push(createParticle());
+        }
+
+        particles = particles.filter((p) => {
+          p.x += p.vx + Math.sin(p.life * 0.02) * 0.3;
+          p.y += p.vy;
+          p.life++;
+
+          const progress = p.life / p.maxLife;
+          const alpha = progress < 0.1
+            ? progress * 10
+            : 1 - (progress - 0.1) / 0.9;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * (1 - progress * 0.5), 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${alpha * 0.6})`;
+          ctx.fill();
+
+          // Glow
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * 3 * (1 - progress * 0.5), 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${alpha * 0.1})`;
+          ctx.fill();
+
+          return p.life < p.maxLife;
+        });
+
+        animationId = requestAnimationFrame(animate);
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+      animate();
+
+      // Pause when not visible
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          animate();
+        } else {
+          cancelAnimationFrame(animationId);
+        }
+      });
+      observer.observe(canvas);
+    }
+  }
+</script>
+
+<!-- GSAP scroll animations -->
+<script>
+  const prefersReducedMotion2 = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion2) {
+    import('gsap').then(({ gsap }) => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Parallax on the fire background section
+        gsap.to('#hero-fire img', {
+          yPercent: -15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#hero-fire',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+
+        // Book cover subtle float
+        gsap.to('#book-reveal img', {
+          y: -20,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#book-reveal',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      });
+    }).catch(() => {
+      // GSAP failed to load — CSS fallback is already in place
+    });
+  }
+</script>

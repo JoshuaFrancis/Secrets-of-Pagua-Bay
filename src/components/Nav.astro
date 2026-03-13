@@ -1,0 +1,126 @@
+---
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/the-story', label: 'The Story' },
+  { href: '/the-world', label: 'The World' },
+  { href: '/characters', label: 'Characters' },
+  { href: '/about', label: 'About' },
+  { href: '/book-clubs', label: 'Book Clubs' },
+  { href: '/press', label: 'Press' },
+];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="main-nav">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+      <!-- Logo / Title -->
+      <a href="/" class="font-display text-lg sm:text-xl text-amber hover:text-amber-dark transition-colors">
+        Secrets of Pagua Bay
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden lg:flex items-center gap-1">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'px-3 py-2 text-sm tracking-wide transition-colors duration-200',
+              currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                ? 'text-amber'
+                : 'text-salt/70 hover:text-salt',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+        <a
+          href="/the-story#buy"
+          class="ml-3 px-5 py-2 bg-amber text-charcoal text-sm font-semibold rounded hover:bg-amber-dark transition-colors"
+        >
+          Get the Book
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden p-2 text-salt/70 hover:text-salt transition-colors"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden fixed inset-0 top-16 bg-[rgba(26,26,46,0.98)] backdrop-blur-sm -translate-x-full transition-transform duration-300 ease-in-out"
+  >
+    <div class="flex flex-col items-center justify-center h-full gap-6 pb-20">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'text-2xl font-display tracking-wide transition-colors',
+            currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+              ? 'text-amber'
+              : 'text-salt/80 hover:text-salt',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="/the-story#buy"
+        class="mt-4 px-8 py-3 bg-amber text-charcoal text-lg font-semibold rounded hover:bg-amber-dark transition-colors"
+      >
+        Get the Book
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  let isOpen = false;
+
+  btn?.addEventListener('click', () => {
+    isOpen = !isOpen;
+    menu?.classList.toggle('-translate-x-full', !isOpen);
+    menu?.classList.toggle('translate-x-0', isOpen);
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close menu on link click
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      isOpen = false;
+      menu.classList.add('-translate-x-full');
+      menu.classList.remove('translate-x-0');
+      btn?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Nav background on scroll
+  const nav = document.getElementById('main-nav');
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) {
+        nav?.classList.add('bg-charcoal/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
+      } else {
+        nav?.classList.remove('bg-charcoal/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
+      }
+    },
+    { threshold: 0 }
+  );
+
+  const sentinel = document.getElementById('nav-sentinel');
+  if (sentinel) observer.observe(sentinel);
+</script>

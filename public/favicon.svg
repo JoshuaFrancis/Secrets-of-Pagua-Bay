@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Flame icon inspired by the book's fire motif -->
+  <defs>
+    <linearGradient id="flame" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#C4392D"/>
+      <stop offset="50%" stop-color="#E8A838"/>
+      <stop offset="100%" stop-color="#F5F0E8"/>
+    </linearGradient>
+  </defs>
+  <path d="M16 2C16 2 8 12 8 20a8 8 0 0016 0c0-8-8-18-8-18zm0 24a4 4 0 01-4-4c0-4 4-10 4-10s4 6 4 10a4 4 0 01-4 4z" fill="url(#flame)"/>
+</svg>
