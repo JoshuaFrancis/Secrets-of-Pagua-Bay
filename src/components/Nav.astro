@@ -61,7 +61,7 @@ const links = [
 <!-- Mobile Menu Overlay — outside nav to avoid stacking context issues -->
 <div
   id="mobile-menu"
-  class="lg:hidden fixed inset-0 z-[60] -translate-x-full transition-transform duration-300 ease-in-out"
+  class="lg:hidden fixed inset-0 z-[60] -translate-x-full"
   style="background-color: #1A1A2E;"
 >
   <!-- Close button -->
@@ -102,6 +102,11 @@ const links = [
   const menu = document.getElementById('mobile-menu');
   const closeBtn = document.getElementById('mobile-menu-close');
   let isOpen = false;
+
+  // Add transition after load to prevent flash on page init
+  requestAnimationFrame(() => {
+    menu?.classList.add('transition-transform', 'duration-300', 'ease-in-out');
+  });
 
   function toggleMenu(open: boolean) {
     isOpen = open;
