@@ -364,16 +364,19 @@ import EmailSignup from '../components/EmailSignup.astro';
         gsap.registerPlugin(ScrollTrigger);
 
         // Parallax on the fire background section
-        gsap.to('#hero-fire img', {
-          yPercent: -15,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '#hero-fire',
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
+        gsap.fromTo('#hero-fire img',
+          { yPercent: 15 },
+          {
+            yPercent: -15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#hero-fire',
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          }
+        );
 
         // Book cover subtle float
         gsap.to('#book-reveal img', {
