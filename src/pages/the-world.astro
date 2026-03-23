@@ -3,16 +3,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import MapIsland from '../components/MapIsland.astro';
 
 const glossaryTerms = [
-  { term: 'Dasheen', definition: 'A root vegetable similar to taro, widely cultivated and eaten in Dominica. A staple of Dominican cuisine.', origin: 'Caribbean' },
-  { term: 'Nine Night', definition: 'A Caribbean funeral tradition where mourners gather for nine nights after a death to celebrate the life of the deceased, share stories, and guide the spirit to rest.', origin: 'West African / Caribbean' },
-  { term: 'Kalinago', definition: 'The indigenous people of Dominica (and other Eastern Caribbean islands), formerly called "Caribs." They maintain their own territory and cultural traditions on the island.', origin: 'Indigenous' },
-  { term: 'Atkinson', definition: 'The Kalinago community settlement area. In the novel, it represents the world Ann comes from, distinct from the main village of Pagua Bay.', origin: 'Kalinago' },
-  { term: 'Lime Squash', definition: 'A small, strong rum drink made with white rum, lime, and cane sugar. The social drink of the French Caribbean.', origin: 'French Caribbean' },
-  { term: 'Creole', definition: 'Both the mixed-heritage culture of the Caribbean and the French-based language (Kwéyòl) spoken in Dominica alongside English.', origin: 'Caribbean' },
-  { term: 'Calypso', definition: 'A genre of music originating in Trinidad, known for its witty, satirical lyrics about social and political issues. Popular throughout the Eastern Caribbean.', origin: 'Trinidadian' },
-  { term: 'Bouyon', definition: 'A high-energy genre of music originating in Dominica, blending traditional Caribbean rhythms with modern beats. It is the heartbeat of Dominican music and culture.', origin: 'Dominican' },
-  { term: 'Soucouyant', definition: 'A shapeshifting Caribbean folklore creature, an old woman who sheds her skin at night and flies as a ball of fire, sucking the blood of victims.', origin: 'Caribbean folklore' },
-  { term: 'Obeah', definition: 'A system of spiritual practices rooted in African traditions, involving healing, divination, and sorcery. Feared and respected throughout the Caribbean.', origin: 'West African' },
+  { term: 'Pagua Bay', definition: 'The fictional coastal village on the northeast coast of Dominica where the story takes place. A close-knit community where everyone knows everyone, and secrets don\'t stay buried for long.', origin: 'Dominican', audio: '/audio/pagua-bay.mp3' },
+  { term: 'Dasheen', definition: 'A root vegetable similar to taro, widely cultivated and eaten in Dominica. A staple of Dominican cuisine.', origin: 'Caribbean', audio: '/audio/dasheen.mp3' },
+  { term: 'Nine Night', definition: 'A Caribbean funeral tradition where mourners gather for nine nights after a death to celebrate the life of the deceased, share stories, and guide the spirit to rest.', origin: 'West African / Caribbean', audio: '/audio/nine-night.mp3' },
+  { term: 'Kalinago', definition: 'The indigenous people of Dominica (and other Eastern Caribbean islands), formerly called "Caribs." They maintain their own territory and cultural traditions on the island.', origin: 'Indigenous', audio: '/audio/kalinago.mp3' },
+  { term: 'Atkinson', definition: 'The Kalinago community settlement area. In the novel, it represents the world Ann comes from, distinct from the main village of Pagua Bay.', origin: 'Kalinago', audio: '/audio/atkinson.mp3' },
+  { term: 'Lime Squash', definition: 'A small, strong rum drink made with white rum, lime, and cane sugar. The social drink of the French Caribbean.', origin: 'French Caribbean', audio: '/audio/lime-squash.mp3' },
+  { term: 'Creole', definition: 'Both the mixed-heritage culture of the Caribbean and the French-based language (Kwéyòl) spoken in Dominica alongside English.', origin: 'Caribbean', audio: '/audio/creole.mp3' },
+  { term: 'Calypso', definition: 'A genre of music originating in Trinidad, known for its witty, satirical lyrics about social and political issues. Popular throughout the Eastern Caribbean.', origin: 'Trinidadian', audio: '/audio/calypso.mp3' },
+  { term: 'Bouyon', definition: 'A high-energy genre of music originating in Dominica, blending traditional Caribbean rhythms with modern beats. It is the heartbeat of Dominican music and culture.', origin: 'Dominican', audio: '/audio/bouyon.mp3' },
+  { term: 'Soucouyant', definition: 'A shapeshifting Caribbean folklore creature, an old woman who sheds her skin at night and flies as a ball of fire, sucking the blood of victims.', origin: 'Caribbean folklore', audio: '/audio/soucouyant.mp3' },
+  { term: 'Obeah', definition: 'A system of spiritual practices rooted in African traditions, involving healing, divination, and sorcery. Feared and respected throughout the Caribbean.', origin: 'West African', audio: '/audio/obeah.mp3' },
 ];
 
 ---
@@ -83,7 +84,24 @@ const glossaryTerms = [
               </svg>
             </summary>
             <div class="px-4 pb-4 text-salt/60 text-sm leading-relaxed border-t border-salt/5 pt-3">
-              {item.definition}
+              <div class="flex items-start justify-between gap-3">
+                <span>{item.definition}</span>
+                {item.audio && (
+                  <button
+                    class="glossary-audio-btn flex-shrink-0 mt-0.5 w-8 h-8 flex items-center justify-center rounded-full border border-amber/30 text-amber hover:bg-amber/10 transition-colors"
+                    data-audio={item.audio}
+                    aria-label={`Listen to pronunciation of ${item.term}`}
+                    type="button"
+                  >
+                    <svg class="w-4 h-4 play-icon" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg class="w-4 h-4 pause-icon hidden" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                  </button>
+                )}
+              </div>
             </div>
           </details>
         ))}
@@ -150,3 +168,51 @@ const glossaryTerms = [
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  let currentAudio = null;
+  let currentBtn = null;
+
+  document.querySelectorAll('.glossary-audio-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const src = btn.dataset.audio;
+
+      // If same button clicked again, toggle pause/play
+      if (currentBtn === btn && currentAudio) {
+        if (currentAudio.paused) {
+          currentAudio.play();
+          btn.querySelector('.play-icon').classList.add('hidden');
+          btn.querySelector('.pause-icon').classList.remove('hidden');
+        } else {
+          currentAudio.pause();
+          btn.querySelector('.play-icon').classList.remove('hidden');
+          btn.querySelector('.pause-icon').classList.add('hidden');
+        }
+        return;
+      }
+
+      // Stop any currently playing audio
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentBtn.querySelector('.play-icon').classList.remove('hidden');
+        currentBtn.querySelector('.pause-icon').classList.add('hidden');
+      }
+
+      // Play new audio
+      currentAudio = new Audio(src);
+      currentBtn = btn;
+      currentAudio.play();
+      btn.querySelector('.play-icon').classList.add('hidden');
+      btn.querySelector('.pause-icon').classList.remove('hidden');
+
+      currentAudio.addEventListener('ended', () => {
+        btn.querySelector('.play-icon').classList.remove('hidden');
+        btn.querySelector('.pause-icon').classList.add('hidden');
+        currentAudio = null;
+        currentBtn = null;
+      });
+    });
+  });
+</script>
