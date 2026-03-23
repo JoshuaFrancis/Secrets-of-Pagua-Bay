@@ -78,30 +78,28 @@ const glossaryTerms = [
               <div class="flex items-center gap-3">
                 <span class="font-display text-lg text-amber">{item.term}</span>
                 <span class="text-xs text-salt/30 tracking-wider">{item.origin}</span>
+                {item.audio && (
+                  <button
+                    class="glossary-audio-btn flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border border-amber/30 text-amber hover:bg-amber/10 transition-colors"
+                    data-audio={item.audio}
+                    aria-label={`Listen to pronunciation of ${item.term}`}
+                    type="button"
+                  >
+                    <svg class="w-3.5 h-3.5 play-icon" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg class="w-3.5 h-3.5 pause-icon hidden" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                  </button>
+                )}
               </div>
               <svg class="w-4 h-4 text-salt/30 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </summary>
             <div class="px-4 pb-4 text-salt/60 text-sm leading-relaxed border-t border-salt/5 pt-3">
-              <div class="flex items-start justify-between gap-3">
-                <span>{item.definition}</span>
-                {item.audio && (
-                  <button
-                    class="glossary-audio-btn flex-shrink-0 mt-0.5 w-8 h-8 flex items-center justify-center rounded-full border border-amber/30 text-amber hover:bg-amber/10 transition-colors"
-                    data-audio={item.audio}
-                    aria-label={`Listen to pronunciation of ${item.term}`}
-                    type="button"
-                  >
-                    <svg class="w-4 h-4 play-icon" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                    <svg class="w-4 h-4 pause-icon hidden" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                    </svg>
-                  </button>
-                )}
-              </div>
+              {item.definition}
             </div>
           </details>
         ))}
