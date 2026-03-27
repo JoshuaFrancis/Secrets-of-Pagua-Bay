@@ -244,20 +244,12 @@ import EmailSignup from '../components/EmailSignup.astro';
     <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ember/20 to-transparent"></div>
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-        <!-- Buy CTA -->
-        <div class="section-fade text-center md:text-left">
-          <h2 class="font-display text-3xl text-salt mb-4">Read the Book</h2>
-          <p class="text-salt/60 mb-8">
-            Available now in paperback and Kindle on Amazon.
-          </p>
-          <BuyButton size="large" />
-        </div>
-
-        <!-- Email Signup -->
-        <div class="section-fade">
-          <EmailSignup />
-        </div>
+      <div class="section-fade text-center">
+        <h2 class="font-display text-3xl text-salt mb-4">Read the Book</h2>
+        <p class="text-salt/60 mb-8">
+          Available now in paperback and Kindle on Amazon.
+        </p>
+        <BuyButton size="large" />
       </div>
     </div>
   </section>
