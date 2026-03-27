@@ -4,6 +4,6 @@
 
 [[redirects]]
   from = "/buy"
-  to = "https://www.amazon.com"
+  to = "https://www.amazon.ca/dp/B0GV2NPJG8"
   status = 302
   force = true
